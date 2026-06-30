@@ -47,6 +47,13 @@
       font-weight: bold;
       color: green;
     }
+    .clear-btn {
+  background-color: #dc3545;
+}
+
+.clear-btn:hover {
+  background-color: #a71d2a;
+}
   </style>
 </head>
 
@@ -66,7 +73,8 @@
       <option value="divide">Divide ÷</option>
     </select>
 
-    <button onclick="calculate()">Calculate</button>
+<button onclick="calculate()">Calculate</button>
+<button onclick="clearCalculator()" class="clear-btn">Clear</button>
 
     <div id="result">Result: </div>
   </div>
@@ -77,7 +85,6 @@
       let number2 = Number(document.getElementById("num2").value);
       let operator = document.getElementById("operator").value;
       let result;
-
       if (operator === "add") {
         result = number1 + number2;
       } 
@@ -97,6 +104,12 @@
       }
 
       document.getElementById("result").innerText = "Result: " + result;
+    }
+    function clearCalculator() {
+      document.getElementById("num1").value = "";
+      document.getElementById("num2").value = "";
+      document.getElementById("operator").value = "add";
+      document.getElementById("result").innerText = "Result: ";
     }
   </script>
 
