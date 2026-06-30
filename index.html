@@ -11,6 +11,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
 
     .calculator {
@@ -41,19 +42,20 @@
       background-color: #0056b3;
     }
 
+    .clear-btn {
+      background-color: #dc3545;
+    }
+
+    .clear-btn:hover {
+      background-color: #a71d2a;
+    }
+
     #result {
       margin-top: 15px;
       font-size: 22px;
       font-weight: bold;
       color: green;
     }
-    .clear-btn {
-  background-color: #dc3545;
-}
-
-.clear-btn:hover {
-  background-color: #a71d2a;
-}
   </style>
 </head>
 
@@ -73,18 +75,31 @@
       <option value="divide">Divide ÷</option>
     </select>
 
-<button onclick="calculate()">Calculate</button>
-<button onclick="clearCalculator()" class="clear-btn">Clear</button>
+    <button onclick="calculate()">Calculate</button>
+    <button onclick="clearCalculator()" class="clear-btn">Clear</button>
 
     <div id="result">Result: </div>
   </div>
 
   <script>
     function calculate() {
-      let number1 = Number(document.getElementById("num1").value);
-      let number2 = Number(document.getElementById("num2").value);
+      let input1 = document.getElementById("num1").value;
+      let input2 = document.getElementById("num2").value;
       let operator = document.getElementById("operator").value;
       let result;
+
+      // Validate input fields before calculation
+      if (input1 === "" || input2 === "") {
+        document.getElementById("result").innerText = "Please enter both numbers";
+        document.getElementById("result").style.color = "red";
+        return;
+      }
+
+      let number1 = Number(input1);
+      let number2 = Number(input2);
+
+      document.getElementById("result").style.color = "green";
+
       if (operator === "add") {
         result = number1 + number2;
       } 
@@ -94,10 +109,11 @@
       else if (operator === "multiply") {
         result = number1 * number2;
       } 
-      
       else if (operator === "divide") {
         if (number2 === 0) {
-          result = "Cannot divide by zero";
+          document.getElementById("result").innerText = "Cannot divide by zero";
+          document.getElementById("result").style.color = "red";
+          return;
         } else {
           result = number1 / number2;
         }
@@ -105,11 +121,13 @@
 
       document.getElementById("result").innerText = "Result: " + result;
     }
+
     function clearCalculator() {
       document.getElementById("num1").value = "";
       document.getElementById("num2").value = "";
       document.getElementById("operator").value = "add";
       document.getElementById("result").innerText = "Result: ";
+      document.getElementById("result").style.color = "green";
     }
   </script>
 
